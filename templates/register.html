@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}  
+<h1>Registration</h1>
+</br>
+</br>
+
+	   	<form action="/myliftinglog/register/" method="post">
+<fieldset>
+{% csrf_token %}
+<div class="clearfix">
+<label>Username:</label>
+<div class="input">
+<input type="text" name="username" value="{{ username }}" />
+</div>
+</div>
+<div class="clearfix">
+<label>Email</label>
+<div class="input">
+<input type="text" name="email" value="{{ email }}"/>
+</div>
+</div>
+<div class="clearfix">
+<label>Password:</label>
+<div class="input">
+<input type="password" name="password" value="{{ password }}" />
+</div>
+</div>
+<div class="clearfix">
+<label>Confirm password:</label>
+<div class="input">
+<input type="password" name="password_confirm" value="{{ password }}" />
+</div>
+	<div class="actions">
+<input class="btn success" type="submit" name="register" value="Submit" />
+<input class="btn" type="reset" value="Reset" />
+</div>
+</fieldset>
+</form>
+
+    </form>
+	  
+{% endblock %}
+
+

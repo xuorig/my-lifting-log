@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+			{% if user.is_anonymous %}
+			<div class="hero-unit">
+				<h1>Do You Even Lift?</h1>
+				<p>
+					Log your lifts to discover if you even lift. Dont wait, <a href="/myliftinglog/register">join myliftinglog now!</a>
+					  <p><a href="/myliftinglog/about/" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+				</p>
+				
+
+			</div>
+			{% endif %}
+
+			{% if user.is_authenticated %}
+			<div class="row">
+				<div class="span4">
+					<h2>Today's workout</h2>
+					<p>
+						How much did you lift today? Use this section to add a new entry to your LiftingLog
+					</p>
+					<p>
+						<a class="btn" href="/myliftinglog/add">Add Lifts! &raquo;</a>
+					</p>
+				</div>
+				<div class="span4">
+					<h2>My Workouts</h2>
+					<p>
+						<ul class="unstyled">
+							{% if listlog %}
+							{% for l in listlog|slice:"5" %}
+							<li>
+								<a href="/myliftinglog/{{ l.id }}">{{ l.pub_date|date:"M d, Y" }}</a>
+							</li>
+							{% endfor %}
+							{% else %}
+							<li>You have no workouts logged yet.</li>
+							{% endif %}
+						</ul>
+					</p>
+
+					<p>
+						<a class="btn" href="#">View all&raquo;</a>
+					</p>
+				</div>
+				<div class="span4">
+					<h2>My Progress</h2>
+					<p>
+						<ul class="unstyled">
+							{% if listlog %}
+							{% for l in lifts %}
+							<li>
+								<a href="/myliftinglog/progress/{{ l.name }}">{{ l.name|capfirst }}</a>
+							</li>
+							{% endfor %}
+							{% else %}
+							<li>You have no workouts logged yet.</li>
+							{% endif %}
+						</ul>
+					</p>
+					<p>
+						<a class="btn" href="#">View all &raquo;</a>
+					</p>
+				</div>
+
+			</div>
+			{% endif %}
+{% endblock %}

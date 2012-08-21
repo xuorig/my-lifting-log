@@ -1,0 +1,46 @@
+<html>
+  <head>
+
+
+
+    <link rel="stylesheet" type="text/css" href="/static/style.css" />
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Date', 'Squat', 'Bodyweight'],
+
+	{% for s in logs %}
+		['{{ s.log.pub_date|date:"M d, Y" }}', {{ s.weight }}, {{ s.log.bw }}],
+	{% endfor %}
+
+        ]);
+
+        var options = {
+          title: 'Squat progression'
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+	<body>
+		<div id="container">	
+			<div id="listlog">
+
+				<ul>
+				{% for l in listlog %}
+					<li><a href="/myliftinglog/{{ l.id }}">{{ l.pub_date|date:"M d, Y" }}</a></li>
+				{% endfor %}
+				</ul>
+
+			</div>
+
+		<div id="chart_div" style="width: 900px; height: 500px;"></div>
+		</div>
+
+	</body>
+</html>

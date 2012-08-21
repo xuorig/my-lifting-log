@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}  
+
+			<h1>{{ log.pub_date|date:"M d, Y" }}'s workout</h1>
+			</br>
+			</br>
+			</br>
+			<table class="table table-striped">
+				<tr>
+					<td>Bodyweight</td><td> {{ log.bw }}</td>
+				</tr>
+
+				{% for l in log.lift_set.all %}
+
+				<tr>
+					<td>{{ l.name }} </td><td> {{ l.sets }}x{{ l.reps }} {{ l.weight }}lbs</td>
+				</tr>
+
+				{% endfor %}
+
+				<tr>
+					<td>Notes</td><td> {{ log.notes }} </td>
+				</tr>
+
+			</table>
+
+			<ul class="pager">
+				<li class="previous">
+					{% if oldlog %}<a href="/myliftinglog/{{ oldlog.id }}">&larr; Older</a>{% else %}{% endif %}
+				</li>
+				<li class="next">
+					{% if newlog %}<a href="/myliftinglog/{{ newlog.id }}">&larr; Newer</a>{% else %}{% endif %}
+				</li>
+			</ul>
+
+{% endblock %}
